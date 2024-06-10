@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    background-image: url("../images/background.jpg"); /* 更換成你的背景圖片路徑 */
+    background-size: cover; /* 使背景圖片充滿整個視窗 */
+    background-position: center; /* 將背景圖片置中 */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    backdrop-filter: blur(10px); /* 模糊處理，5px 是模糊程度，可以根據需要調整 */
+}
+
+.container {
+    width: 90%; /* 調整容器寬度 */
+    max-width: 600px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* 背景色透明度為 80% */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* 確保內容可以覆蓋在模糊背景上 */
+    z-index: 1; /* 將內容放置在背景之上 */
+}
+
+h1 {
+    color: #333;
+    font-size: 3vw; /* 調整標題文字大小為視窗寬度的百分比 */
+    margin-bottom: 30px; /* 增加底部間距 */
+}
+
+a.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 2vw 4vw; /* 調整按鈕大小為視窗寬度的百分比 */
+    font-size: 2vw; /* 調整按鈕文字大小為視窗寬度的百分比 */
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+a.btn:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+    /* 響應式設計 */
+    .container {
+        width: 100%; /* 小於 768px 時佔滿整個螢幕 */
+    }
+
+    h1 {
+        font-size: 8vw; /* 調整響應式標題文字大小為視窗寬度的百分比 */
+    }
+
+    a.btn {
+        padding: 8vw 16vw; /* 調整響應式按鈕大小為視窗寬度的百分比 */
+        font-size: 8vw; /* 調整響應式按鈕文字大小為視窗寬度的百分比 */
+    }
+}

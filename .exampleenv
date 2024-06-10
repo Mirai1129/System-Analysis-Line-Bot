@@ -1,0 +1,4 @@
+CHANNEL_SECRET = <line bot channel secret>
+CHANNEL_ACCESS_TOKEN = <line bot channel access token>
+PORT = 5000
+MONGODB_CONNECTION_URL = mongodb://localhost:29017

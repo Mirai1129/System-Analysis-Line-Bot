@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Log In Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{{ url_for('members.static', filename='css/login.css') }}">
+</head>
+<body>
+<div class="form-structor">
+    <div class="signup">
+        <h2 class="form-title" id="signup"></h2>
+        <div class="form-holder">
+        </div>
+
+    </div>
+    <div class="login slide-up">
+        <div class="center">
+            <h2 class="form-title" id="login">Login</h2>
+            <form action="/members/checkLogin" method="POST">
+                <div class="form-holder">
+                    <label>
+                        <input type="username" class="input" placeholder="UserName" name="user_id"/>
+                    </label>
+                    <label>
+                        <input type="password" class="input" placeholder="Password" name="password"/>
+                    </label>
+                </div>
+                <button class="submit-btn">Log in</button>
+            </form>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+            <script>
+                // Check if there are any error messages
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        // If there are error messages, display them using SweetAlert
+                        {% for message in messages %}
+                            Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                type: 'error',
+                                animation: false,
+                                customClass: 'animate__animated animate__shakeX'
+                            })
+                            Toast.fire({
+                                title: '{{ message }}'
+                            });
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </script>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('members.static', filename='js/login.js') }}"></script>
+</body>
+</html>

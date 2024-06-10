@@ -1,0 +1,220 @@
+body {
+    font-size: 24px; /* 基础字体大小 */
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 0 1px 0 rgba(24, 94, 224, 0.15), 0 6px 12px 0 rgba(24, 94, 224, 0.15);
+    padding: 1rem;
+    border-radius: 99px;
+    font-size: 1.5rem; /* 放大标签字体 */
+}
+
+.tabs * {
+    z-index: 2;
+}
+
+.container input[type="radio"] {
+    display: none;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 40px;
+    font-size: 1.5rem; /* 放大标签字体 */
+    color: black;
+    font-weight: 500;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 10px;
+    left: 30%;
+    font-size: 1.5rem; /* 放大通知字体 */
+    margin-left: 0.75rem;
+    border-radius: 50%;
+    margin: 0px;
+    background-color: #e6eef9;
+    transition: 0.15s ease-in;
+}
+
+.container input[type="radio"]:checked + label {
+    color: #185ee0;
+}
+
+.container input[type="radio"]:checked + label > .notification {
+    background-color: #185ee0;
+    color: #fff;
+    margin: 0px;
+}
+
+.container input[id="radio-1"]:checked ~ .glider {
+    transform: translateX(73%);
+}
+
+.container input[id="radio-2"]:checked ~ .glider {
+    transform: translateX(321%);
+}
+
+.container input[id="radio-3"]:checked ~ .glider {
+    transform: translateX(567%);
+}
+
+.container input[id="radio-4"]:checked ~ .glider {
+    transform: translateX(812%);
+}
+
+.container input[id="radio-5"]:checked ~ .glider {
+    transform: translateX(1062%);
+}
+
+.container input[id="radio-6"]:checked ~ .glider {
+    transform: translateX(1308%);
+}
+
+.glider {
+    position: absolute;
+    display: flex;
+    height: 40px; /* 你可以根據需要調整高度 */
+    width: calc(100% / 15); /* 根據按鈕數量進行自適應 */
+    background-color: #e6eef9;
+    z-index: 1;
+    border-radius: 99px;
+    transition: 0.25s ease-out;
+}
+
+@media (max-width: 700px) {
+    .tabs {
+        transform: scale(0.6);
+    }
+}
+
+.card {
+    width: 60%;
+    height: auto;
+    border-radius: 20px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
+    margin: 20px auto;
+    padding: 30px; /* 增加卡片内边距 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 1.5rem; /* 放大卡片内容字体 */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.profile-info p {
+    margin: 10px 0; /* 增加段落间距 */
+}
+
+.info-table, .exercise-table, .observation-table, .status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px; /* 增加表格与顶部内容的间距 */
+    font-size: 1.5rem; /* 放大表格字体 */
+}
+
+.info-table th, .info-table td, .exercise-table th, .exercise-table td, .observation-table th, .observation-table td, .status-table th, .status-table td {
+    border: 1px solid #ddd;
+    padding: 15px; /* 增加表格单元格内边距 */
+}
+
+.info-table th, .exercise-table th, .observation-table th, .status-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.logout-button {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    padding: 20px 40px; /* 增加按钮内边距 */
+    font-size: 1.5rem; /* 放大按钮字体 */
+    color: #fff;
+    background-color: #185ee0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logout-button:hover {
+    background-color: #154bb5;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px; /* 增加弹出框内边距 */
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal-text {
+    font-size: 1.5rem; /* 放大弹出框文本字体 */
+    margin-bottom: 30px; /* 增加文本与底部按钮的间距 */
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-button {
+    padding: 20px 40px; /* 增加弹出框按钮内边距 */
+    font-size: 1.5rem; /* 放大弹出框按钮字体 */
+    color: #fff;
+    background-color: #185ee0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button:hover {
+    background-color: #154bb5;
+}

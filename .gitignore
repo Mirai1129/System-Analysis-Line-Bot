@@ -1,0 +1,6 @@
+.env
+.idea
+__pychache__/
+.venv/
+testdata/
+node_modules/

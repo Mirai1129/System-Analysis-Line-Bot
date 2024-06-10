@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('members.static', filename='css/main.css') }}">
+    <title>Tabs Example</title>
+</head>
+<body>
+<div class="container">
+    <div class="tabs">
+        <input type="radio" id="radio-1" name="tabs" checked="">
+        <label class="tab" for="radio-1" onclick="showContent(1)">資訊</label>
+        <input type="radio" id="radio-2" name="tabs">
+        <label class="tab" for="radio-2" onclick="showContent(2)">身體資訊</label>
+        <input type="radio" id="radio-3" name="tabs">
+        <label class="tab" for="radio-3" onclick="showContent(3)">運動資訊</label>
+        <input type="radio" id="radio-4" name="tabs">
+        <label class="tab" for="radio-4" onclick="showContent(4)">觀察列表</label>
+        <input type="radio" id="radio-5" name="tabs">
+        <label class="tab" for="radio-5" onclick="showContent(5)">狀態</label>
+        {#        <span class="glider"></span>#}
+    </div>
+</div>
+<div class="content">
+    <div id="content-1" class="card">
+        <h2>資訊</h2>
+        <div class="profile">
+            <table class="info-table">
+                <tr>
+                    <th>項目</th>
+                    <th>資料</th>
+                </tr>
+                <tr>
+                    <td>名字</td>
+                    <td>{{ profile.name }}</td>
+                </tr>
+                <tr>
+                    <td>年齡</td>
+                    <td>{{ profile.age }}</td> <!-- 从 status 表中获取年龄 -->
+                </tr>
+                <tr>
+                    <td>居住地址</td>
+                    <td>{{ profile.address }}</td> <!-- 假设 profile 有 address 字段 -->
+                </tr>
+                <tr>
+                    <td>子女電話</td>
+                    <td>{{ profile.phone_number }}</td> <!-- 假设 profile 有 children_phone 字段 -->
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="content-2" class="card" style="display: none;">
+        <h2>身體資訊</h2>
+        <table class="info-table">
+            <tr>
+                <th>項目</th>
+                <th>數值</th>
+            </tr>
+            <tr>
+                <td>血脂</td>
+                <td>{{ body_health.blood_lipids }} mg/dL</td>
+            </tr>
+            <tr>
+                <td>血氧</td>
+                <td>{{ body_health.blood_oxygen }}%</td>
+            </tr>
+            <tr>
+                <td>血糖</td>
+                <td>{{ body_health.blood_sugar }} mg/dL</td>
+            </tr>
+            <tr>
+                <td>血壓</td>
+                <td>{{ body_health.systolic_pressure }}/{{ body_health.diastolic_pressure }} mmHg</td>
+            </tr>
+            <tr>
+                <td>消耗卡路里</td>
+                <td>{{ body_health.consume_calories }} bpm</td>
+            </tr>
+            <tr>
+                <td>收縮壓</td>
+                {# Systolic blood pressure #}
+                <td>{{ body_health.systolic_pressure }} mmHg</td>
+            </tr>
+            <tr>
+                <td>舒張壓</td>
+                {# Diastolic blood pressure #}
+                <td>{{ body_health.diastolic_pressure }} mmHg</td>
+            </tr>
+        </table>
+    </div>
+    <div id="content-3" class="card" style="display: none;">
+        <h2>運動資訊</h2>
+        <table class="exercise-table">
+            <tr>
+                <th>日期時間</th>
+                <th>運動類型</th>
+                <th>運動時長</th>
+            </tr>
+            {% for exercise_item in exercise %}
+                {% for observe_list_item in observe_list %}
+                    {% if exercise_item.observe_id == observe_list_item.observe_id %}
+                        <tr>
+                            <td>{{ observe_list_item.observed_time }}</td> {# Observed_list #}
+                            <td>{{ exercise_item.type }}</td> {# Exercise #}
+                            <td>{{ exercise_item.duration_minutes }}</td> {# Exercise #}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+    <div id="content-4" class="card" style="display: none;">
+        <h2>觀察列表</h2>
+        <table class="observation-table">
+            <tr>
+                <th>觀察日期</th>
+                <th>觀察時間</th>
+                <th>觀察地址</th>
+            </tr>
+            {% for observe_item in observe_list %}
+                <tr>
+                    <td>{{ observe_item.observed_time.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ observe_item.observed_time.strftime('%H:%M') }}</td>
+                    <td>{{ observe_item.location }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="content-5" class="card" style="display: none;">
+        <h2>狀態</h2>
+        <table class="status-table">
+            <tr>
+                <th>項目</th>
+                <th>狀態</th>
+            </tr>
+            <tr>
+                <td>身高</td>
+                <td>{{ status.height }} cm</td>
+            </tr>
+            <tr>
+                <td>體重</td>
+                <td>{{ status.weight }} kg</td>
+            </tr>
+            <tr>
+                <td>血氧</td>
+                <td>{{ "正常" if status.blood_oxygen > 95 else "異常" }}</td>
+            </tr>
+            <tr>
+                <td>血糖</td>
+                <td>
+                    {% if status.blood_sugar >= 60 and status.blood_sugar <= 99 %}
+                        正常
+                    {% elif status.blood_sugar > 99 %}
+                        高
+                    {% else %}
+                        低
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>血壓</td>
+                <td>
+                    {% if status.systolic_pressure <= 120 and status.diastolic_pressure <= 80 %}
+                        正常
+                    {% elif 120 < status.systolic_pressure <= 140 or 80 < status.diastolic_pressure <= 90 %}
+                        高血壓前期
+                    {% elif status.systolic_pressure > 140 or status.diastolic_pressure > 90 %}
+                        高血壓
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>心率</td>
+                <td>
+                    {% if status.heart_rate >= 60 and status.heart_rate <= 100 %}
+                        正常
+                    {% elif status.heart_rate > 100 %}
+                        太快
+                    {% else %}
+                        太慢
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>血脂</td>
+                <td>
+                    {% if status.blood_lipids <= 200 and status.blood_lipids <= 130 and status.blood_lipids >= 40 %}
+                        正常
+                    {% elif status.blood_lipids > 200 or status.blood_lipids > 130 or status.blood_lipids < 40 %}
+                        異常
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<button class="logout-button" onclick="showLogoutConfirm()">登出</button>
+
+<!-- 登出確認彈出框 -->
+<div id="logoutConfirm" class="modal">
+    <div class="modal-content">
+        <p class="modal-text">確定要登出嗎？</p>
+        <div class="modal-buttons">
+            <button class="modal-button" onclick="confirmLogout()">Yes</button>
+            <button class="modal-button" onclick="closeLogoutConfirm()">No</button>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('members.static', filename='js/main.js') }}"></script>
+</body>
+</html>
